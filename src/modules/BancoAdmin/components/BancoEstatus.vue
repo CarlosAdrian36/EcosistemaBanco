@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { useEstatusBanco } from '../composables/useEstatusBanco';
 import ClockIcon from '@/modules/common/icons/iconsEstatus/clockIcon.vue';
 import ArrowPathIcon from '@/modules/common/icons/iconsEstatus/arrowPathIcon.vue';
@@ -27,9 +27,22 @@ import QuestionMarkCircleIcon from '@/modules/common/icons/iconsEstatus/question
 const props = defineProps<{
   bancoId: string;
 }>();
+const emit = defineEmits(['estatus-change']);
 
 const { data, isLoading, isError } = useEstatusBanco(props.bancoId);
 
+watch(
+  data,
+  (newData) => {
+    if (newData?.estatus) {
+      emit('estatus-change', {
+        bancoId: props.bancoId,
+        estatus: newData.estatus,
+      });
+    }
+  },
+  { immediate: true },
+);
 const estatusClass = computed(() => {
   console.log(data.value?.estatus);
   if (!data.value) return 'badge-ghost';

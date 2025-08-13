@@ -1,7 +1,7 @@
 export interface BancoReactivos {
   nombre: string;
   bancoId: string;
-  lenguaje: ('francés' | 'inglés')[];
+  lenguaje: (3 | 2)[];
 }
 
 export type EstatusBanco = {

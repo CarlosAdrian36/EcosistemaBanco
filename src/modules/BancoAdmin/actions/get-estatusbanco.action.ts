@@ -11,7 +11,7 @@ const posiblesEstatus = [
 
 export const obtenerEstatusBanco = (
   bancoId: string,
-  delay: number = 7000,
+  delay: number = 5000,
 ): Promise<EstatusBanco> => {
   return new Promise((resolve) => {
     setTimeout(() => {

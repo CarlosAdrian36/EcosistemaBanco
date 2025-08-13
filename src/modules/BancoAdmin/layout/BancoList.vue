@@ -30,7 +30,7 @@
         <div class="stats shadow bg-base-100">
           <div class="stat">
             <div class="stat-title">Terminado</div>
-            <div class="stat-value">3</div>
+            <div class="stat-value">{{ estatusCount.Terminado }}</div>
             <div class="stat-desc">Bancos Revisados y listos para usar</div>
           </div>
         </div>
@@ -41,7 +41,7 @@
         <div class="stats shadow bg-base-100">
           <div class="stat">
             <div class="stat-title">Construccion</div>
-            <div class="stat-value">7</div>
+            <div class="stat-value">{{ estatusCount.Revision }}</div>
             <div class="stat-desc">Bancos aun en revision o pendientes</div>
           </div>
         </div>
@@ -62,9 +62,55 @@
   <!-- Filtros de Seleccion -->
   <div class="flex flex-row justify-center mt-10">
     <form class="filter">
-      <input class="btn btn-square" type="reset" value="" />
-      <input class="btn" type="radio" name="frameworks" aria-label="Terminado" />
-      <input class="btn" type="radio" name="frameworks" aria-label="Construccion" />
+      <input class="btn btn-square" type="reset" value="×" @click="resetFilter" />
+      <input
+        class="btn"
+        type="radio"
+        name="frameworks"
+        aria-label="Aprobado"
+        v-model="filtroEstatus"
+        value="Aprobado"
+      />
+      <input
+        class="btn"
+        type="radio"
+        name="frameworks"
+        aria-label="Pendiente"
+        v-model="filtroEstatus"
+        value="Pendiente"
+      />
+      <input
+        class="btn"
+        type="radio"
+        name="frameworks"
+        aria-label="Proceso"
+        v-model="filtroEstatus"
+        value="Proceso"
+      />
+      <input
+        class="btn"
+        type="radio"
+        name="frameworks"
+        aria-label="Terminado"
+        v-model="filtroEstatus"
+        value="Terminado"
+      />
+      <input
+        class="btn"
+        type="radio"
+        name="frameworks"
+        aria-label="Revision"
+        v-model="filtroEstatus"
+        value="Revision"
+      />
+      <input
+        class="btn"
+        type="radio"
+        name="frameworks"
+        aria-label="Rechazado"
+        v-model="filtroEstatus"
+        value="Rechazado"
+      />
     </form>
     <!-- Busqueda -->
     <div class="ml-10">
@@ -100,6 +146,7 @@
           <th></th>
         </tr>
       </thead>
+
       <tbody>
         <!-- Estado de carga -->
         <tr v-if="isPending">
@@ -115,7 +162,11 @@
           </td>
         </tr>
         <template v-else>
-          <tr class="hover:bg-base-300" v-for="(banco, index) in bancos" :key="banco.bancoId">
+          <tr
+            class="hover:bg-base-300"
+            v-for="(banco, index) in bancosFiltrados"
+            :key="banco.bancoId"
+          >
             <th>{{ index + 1 }}</th>
             <td>
               <div class="break-words">
@@ -131,24 +182,17 @@
                     class="tooltip"
                     :data-tip="idiomasConfig[idioma].tooltip"
                   >
-                    <img
-                      :src="idiomasConfig[idioma].bandera"
-                      :alt="`Bandera ${idioma}`"
-                      class="w-6 h-4 object-cover"
-                    />
+                    <img :src="idiomasConfig[idioma].bandera" class="w-6 h-4 object-cover" />
                   </div>
                 </template>
               </div>
             </td>
             <td>
-              <BancoEstatus :bancoId="banco.bancoId" />
+              <BancoEstatus :bancoId="banco.bancoId" @estatus-change="handleEstatusChange" />
             </td>
-            <th>
-              <RouterLink class="btn btn-xs" :to="``"> Detalles </RouterLink>
-              <div class="flex ps-4">
-                <RouterLink class="btn btn-xs" :to="``"><ConfigIcon /> </RouterLink>
-              </div>
-            </th>
+            <td>
+              <RouterLink class="btn btn-xs btn-ghost" :to="``"><ConfigIcon /> </RouterLink>
+            </td>
           </tr>
         </template>
       </tbody>
@@ -157,7 +201,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
 import { RouterLink } from 'vue-router';
 import { obtenerBancosReactivos } from '../actions/get-banco.action';
@@ -173,6 +217,15 @@ import ConfigIcon from '@/modules/common/icons/configIcon.vue';
 const modalOpen = ref(false);
 // Funcionalidad para habilitar el Ctrl + k
 const searchInput = ref<HTMLInputElement | null>(null);
+
+type Estatus =
+  | 'Pendiente'
+  | 'Proceso'
+  | 'Terminado'
+  | 'Aprobado'
+  | 'Rechazado'
+  | 'Revision'
+  | 'Construccion';
 
 const handleKeydown = (e: KeyboardEvent) => {
   if (e.ctrlKey && e.key === 'k') {
@@ -206,20 +259,68 @@ const {
 
 //Idioma
 const idiomasConfig = {
-  inglés: {
+  2: {
     bandera: '/src/assets/banderas/estados-unidos-de-america.png',
     tooltip: 'Inglés',
   },
-  francés: {
+  3: {
     bandera: '/src/assets/banderas/francia.png',
     tooltip: 'Francés',
   },
-  // Puedes agregar más idiomas aquí
-  español: {
+  4: {
     bandera: '/src/assets/banderas/espana.png',
     tooltip: 'Español',
   },
 };
+
+// Contador de estatus
+const estatusCount = ref<Record<Estatus, number>>({
+  Pendiente: 0,
+  Proceso: 0,
+  Terminado: 0,
+  Aprobado: 0,
+  Rechazado: 0,
+  Revision: 0,
+  Construccion: 0,
+});
+const bancoStatusMap = ref<Record<string, Estatus>>({});
+const handleEstatusChange = (payload: { bancoId: string; estatus: Estatus }) => {
+  const { bancoId, estatus } = payload;
+  console.log(estatusCount.value, '--');
+
+  // Si el banco ya tenía un estatus registrado, lo decrementamos
+  if (bancoStatusMap.value[bancoId]) {
+    const oldStatus = bancoStatusMap.value[bancoId];
+    estatusCount.value[oldStatus] = Math.max(0, estatusCount.value[oldStatus] - 1);
+  }
+
+  // Actualizamos el estatus del banco
+  bancoStatusMap.value[bancoId] = estatus;
+
+  // Incrementamos el contador del nuevo estatus
+  estatusCount.value[estatus]++;
+};
+
+// Filtado de datos por medio de estatus
+const filtroEstatus = ref<Estatus | null>(null);
+
+// Método para resetear el filtro
+const resetFilter = () => {
+  filtroEstatus.value = null;
+};
+
+// Computed para obtener los bancos filtrados
+const bancosFiltrados = computed(() => {
+  if (!bancos.value) return [];
+
+  // Si no hay filtro, mostrar todos los bancos
+  if (!filtroEstatus.value) return bancos.value;
+
+  // Filtrar por estatus
+  return bancos.value.filter((banco) => {
+    return bancoStatusMap.value[banco.bancoId] === filtroEstatus.value;
+  });
+});
 </script>
 <style scoped>
 .sin {
