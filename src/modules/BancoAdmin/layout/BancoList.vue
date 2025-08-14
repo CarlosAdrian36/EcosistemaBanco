@@ -5,21 +5,19 @@
       <div class="text-xl font-bold mb-4 sm:mb-0 border-base-300 text-neutral-content">
         Banco de Reactivos
       </div>
-      <button @click="modalOpen = true" class="btn w-full sm:w-auto">
-        Agregar Banco de Reactivos
-      </button>
+      <button class="btn w-full sm:w-auto">Agregar Banco de Reactivos</button>
     </div>
   </div>
 
   <!-- "-------------------------------------------------------------  TARJETAS DE INFORNACION ------------------------------------------------------------" -->
 
-  <div v-if="!isLoading" class="flex flex-wrap gap-6 justify-center -mt-14 relative z-10">
+  <div class="flex flex-wrap gap-6 justify-center -mt-14 relative z-10">
     <div class="card bg-base-200 w-80 h-44 shadow-sm">
       <div class="card-body">
         <div class="stats shadow bg-base-100">
           <div class="stat">
             <div class="stat-title">Bancos</div>
-            <div class="stat-value">{{ bancos?.length }}</div>
+            <div class="stat-value">{{ 2 }}</div>
             <div class="stat-desc">Bancos creados</div>
           </div>
         </div>
@@ -30,7 +28,7 @@
         <div class="stats shadow bg-base-100">
           <div class="stat">
             <div class="stat-title">Terminado</div>
-            <div class="stat-value">{{ estatusCount.Terminado }}</div>
+            <div class="stat-value">{{ 3 }}</div>
             <div class="stat-desc">Bancos Revisados y listos para usar</div>
           </div>
         </div>
@@ -41,76 +39,34 @@
         <div class="stats shadow bg-base-100">
           <div class="stat">
             <div class="stat-title">Construccion</div>
-            <div class="stat-value">{{ estatusCount.Revision }}</div>
+            <div class="stat-value">{{ 5 }}</div>
             <div class="stat-desc">Bancos aun en revision o pendientes</div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div v-if="isLoading" class="flex flex-wrap gap-6 justify-center -mt-14 relative z-10">
+  <div class="flex flex-wrap gap-6 justify-center -mt-14 relative z-10">
     <div class="card bg-base-200 skeleton w-80 h-44 shadow-sm"></div>
     <div class="card bg-base-200 skeleton w-80 h-44 shadow-sm"></div>
     <div class="card bg-base-200 skeleton w-80 h-44 shadow-sm"></div>
   </div>
 
   <!-- Modal de Creacion de Banco -->
-  <!-- <ModalCustom :open="modalOpen" /> -->
+  <CrearbancoModal :open="modalOpen" />
 
   <!-- "------------------------------------------------------------- FILTROS  ------------------------------------------------------------" -->
 
   <!-- Filtros de Seleccion -->
   <div class="flex flex-row justify-center mt-10">
     <form class="filter">
-      <input class="btn btn-square" type="reset" value="×" @click="resetFilter" />
-      <input
-        class="btn"
-        type="radio"
-        name="frameworks"
-        aria-label="Aprobado"
-        v-model="filtroEstatus"
-        value="Aprobado"
-      />
-      <input
-        class="btn"
-        type="radio"
-        name="frameworks"
-        aria-label="Pendiente"
-        v-model="filtroEstatus"
-        value="Pendiente"
-      />
-      <input
-        class="btn"
-        type="radio"
-        name="frameworks"
-        aria-label="Proceso"
-        v-model="filtroEstatus"
-        value="Proceso"
-      />
-      <input
-        class="btn"
-        type="radio"
-        name="frameworks"
-        aria-label="Terminado"
-        v-model="filtroEstatus"
-        value="Terminado"
-      />
-      <input
-        class="btn"
-        type="radio"
-        name="frameworks"
-        aria-label="Revision"
-        v-model="filtroEstatus"
-        value="Revision"
-      />
-      <input
-        class="btn"
-        type="radio"
-        name="frameworks"
-        aria-label="Rechazado"
-        v-model="filtroEstatus"
-        value="Rechazado"
-      />
+      <input class="btn btn-square" type="reset" value="×" />
+      <input class="btn" type="radio" name="frameworks" aria-label="Aprobado" value="Aprobado" />
+      <input class="btn" type="radio" name="frameworks" aria-label="Pendiente" value="Pendiente" />
+      <input class="btn" type="radio" name="frameworks" aria-label="Proceso" value="Proceso" />
+      <input class="btn" type="radio" name="frameworks" aria-label="Terminado" value="Terminado" />
+      <input class="btn" type="radio" name="frameworks" aria-label="Revision" value="Revision" />
+      <input class="btn" type="radio" name="frameworks" aria-label="Rechazado" value="Rechazado" />
     </form>
     <!-- Busqueda -->
     <div class="ml-10">
@@ -149,178 +105,41 @@
 
       <tbody>
         <!-- Estado de carga -->
-        <tr v-if="isPending">
+        <tr>
           <td colspan="4" class="text-center py-4">
             <span class="loading loading-spinner loading-lg"></span>
             <p>Cargando bancos de reactivos...</p>
           </td>
         </tr>
         <!-- Estado de error -->
-        <tr v-else-if="isError">
-          <td colspan="4" class="text-center text-error py-4">
-            Error al cargar los datos: {{ error?.message }}
+        <tr>
+          <td colspan="4" class="text-center text-error py-4">Error al cargar los datos:</td>
+        </tr>
+
+        <tr class="hover:bg-base-300">
+          <th>#@$23d232</th>
+          <td>
+            <div class="break-words">Matematicas1</div>
+          </td>
+          <td>
+            <div class="break-words">Español ingle Frances</div>
+            <div class="flex flex-wrap gap-1"></div>
+          </td>
+          <td>Pendiente</td>
+          <td>
+            <RouterLink class="btn btn-xs btn-ghost" :to="``"><ConfigIcon /> </RouterLink>
           </td>
         </tr>
-        <template v-else>
-          <tr
-            class="hover:bg-base-300"
-            v-for="(banco, index) in bancosFiltrados"
-            :key="banco.bancoId"
-          >
-            <th>{{ index + 1 }}</th>
-            <td>
-              <div class="break-words">
-                {{ banco.nombre }}
-              </div>
-            </td>
-            <td>
-              <!-- <div class="break-words">{{ banco.lenguaje }}</div> -->
-              <div class="flex flex-wrap gap-1">
-                <template v-for="idioma in banco.lenguaje" :key="idioma">
-                  <div
-                    v-if="idiomasConfig[idioma]"
-                    class="tooltip"
-                    :data-tip="idiomasConfig[idioma].tooltip"
-                  >
-                    <img :src="idiomasConfig[idioma].bandera" class="w-6 h-4 object-cover" />
-                  </div>
-                </template>
-              </div>
-            </td>
-            <td>
-              <BancoEstatus :bancoId="banco.bancoId" @estatus-change="handleEstatusChange" />
-            </td>
-            <td>
-              <RouterLink class="btn btn-xs btn-ghost" :to="``"><ConfigIcon /> </RouterLink>
-            </td>
-          </tr>
-        </template>
       </tbody>
     </table>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
-
-import { RouterLink } from 'vue-router';
-import { obtenerBancosReactivos } from '../actions/get-banco.action';
-import { useQuery } from '@tanstack/vue-query';
-import type { BancoReactivos } from '../interfaces/banco.interface';
-import BancoEstatus from '../components/BancoEstatus.vue';
-import ConfigIcon from '@/modules/common/icons/configIcon.vue';
-
-// import ValidadoIcon from '@/modules/common/icon/validadoIcon.vue';
-// import WarnIcon from '@/modules/common/icon/warnIcon.vue';
-// import ModalCustom from '@/modules/common/components/ModalCustom.vue';
+import CrearbancoModal from '@/modules/common/components/CrearbancoModal.vue';
+import { ref } from 'vue';
 
 const modalOpen = ref(false);
-// Funcionalidad para habilitar el Ctrl + k
-const searchInput = ref<HTMLInputElement | null>(null);
-
-type Estatus =
-  | 'Pendiente'
-  | 'Proceso'
-  | 'Terminado'
-  | 'Aprobado'
-  | 'Rechazado'
-  | 'Revision'
-  | 'Construccion';
-
-const handleKeydown = (e: KeyboardEvent) => {
-  if (e.ctrlKey && e.key === 'k') {
-    e.preventDefault(); // Evita abrir búsqueda del navegador
-    if (searchInput.value) {
-      searchInput.value.focus();
-    }
-  }
-};
-
-onMounted(() => {
-  window.addEventListener('keydown', handleKeydown);
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener('keydown', handleKeydown);
-});
-
-// Obtener datos de los bancos
-const {
-  isPending,
-  isLoading,
-  isError,
-  data: bancos,
-  error,
-} = useQuery<BancoReactivos[]>({
-  queryKey: ['bancos-reactivos'],
-  queryFn: () => obtenerBancosReactivos(),
-  refetchOnWindowFocus: false,
-});
-
-//Idioma
-const idiomasConfig = {
-  2: {
-    bandera: '/src/assets/banderas/estados-unidos-de-america.png',
-    tooltip: 'Inglés',
-  },
-  3: {
-    bandera: '/src/assets/banderas/francia.png',
-    tooltip: 'Francés',
-  },
-  4: {
-    bandera: '/src/assets/banderas/espana.png',
-    tooltip: 'Español',
-  },
-};
-
-// Contador de estatus
-const estatusCount = ref<Record<Estatus, number>>({
-  Pendiente: 0,
-  Proceso: 0,
-  Terminado: 0,
-  Aprobado: 0,
-  Rechazado: 0,
-  Revision: 0,
-  Construccion: 0,
-});
-const bancoStatusMap = ref<Record<string, Estatus>>({});
-const handleEstatusChange = (payload: { bancoId: string; estatus: Estatus }) => {
-  const { bancoId, estatus } = payload;
-  console.log(estatusCount.value, '--');
-
-  // Si el banco ya tenía un estatus registrado, lo decrementamos
-  if (bancoStatusMap.value[bancoId]) {
-    const oldStatus = bancoStatusMap.value[bancoId];
-    estatusCount.value[oldStatus] = Math.max(0, estatusCount.value[oldStatus] - 1);
-  }
-
-  // Actualizamos el estatus del banco
-  bancoStatusMap.value[bancoId] = estatus;
-
-  // Incrementamos el contador del nuevo estatus
-  estatusCount.value[estatus]++;
-};
-
-// Filtado de datos por medio de estatus
-const filtroEstatus = ref<Estatus | null>(null);
-
-// Método para resetear el filtro
-const resetFilter = () => {
-  filtroEstatus.value = null;
-};
-
-// Computed para obtener los bancos filtrados
-const bancosFiltrados = computed(() => {
-  if (!bancos.value) return [];
-
-  // Si no hay filtro, mostrar todos los bancos
-  if (!filtroEstatus.value) return bancos.value;
-
-  // Filtrar por estatus
-  return bancos.value.filter((banco) => {
-    return bancoStatusMap.value[banco.bancoId] === filtroEstatus.value;
-  });
-});
 </script>
 <style scoped>
 .sin {

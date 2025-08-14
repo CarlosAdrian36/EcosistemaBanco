@@ -1,0 +1,74 @@
+<template>
+  <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle" :open="open">
+    <div class="modal-box">
+      <form method="dialog" @submit.prevent="Submit">
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend">Nombre del banco</legend>
+          <input ref="inputRef" type="text" class="input" placeholder="Titulo" v-model="titulo" />
+          <legend class="fieldset-legend">Descripcion</legend>
+          <input type="text" class="input" placeholder="Descripcion" v-model="descripcion" />
+          <div class="flex flex-col">
+            <label class="label pt-2 gap-4">
+              <div class="flex items-center gap-2">
+                <input type="checkbox" class="toggle toggle-md" v-model="ingles" />
+                Inglés
+              </div>
+
+              <div class="flex items-center gap-2">
+                <input type="checkbox" class="toggle toggle-md" v-model="frances" />
+                Francés
+              </div>
+            </label>
+          </div>
+        </fieldset>
+        <div class="modal-action">
+          <button class="btn">Close</button>
+          <button type="submit" class="btn btn-primary">Aceptar</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+</template>
+<script lang="ts" setup>
+import { ref } from 'vue';
+
+const inputRef = ref<HTMLInputElement | null>(null);
+
+const titulo = ref('');
+const descripcion = ref('');
+const ingles = ref(2);
+const frances = ref(3);
+
+interface Props {
+  open: boolean;
+}
+defineProps<Props>();
+
+const emit = defineEmits<{
+  (e: 'close'): void;
+  (
+    e: 'submit',
+    titulo: string,
+    descripcion: string,
+    traducciones: { ingles: number; frances: number },
+  ): void;
+}>();
+
+const Submit = () => {
+  console.log({ value: titulo.value });
+
+  if (!titulo.value || !descripcion.value) {
+    inputRef.value?.focus();
+    return;
+  }
+  emit('submit', titulo.value.trim(), descripcion.value.trim(), {
+    ingles: ingles.value,
+    frances: frances.value,
+  });
+  emit('close');
+  titulo.value = '';
+  descripcion.value = '';
+  ingles.value = 0;
+  frances.value = 0;
+};
+</script>
