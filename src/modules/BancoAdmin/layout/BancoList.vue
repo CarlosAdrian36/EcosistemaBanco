@@ -5,7 +5,9 @@
       <div class="text-xl font-bold mb-4 sm:mb-0 border-base-300 text-neutral-content">
         Banco de Reactivos
       </div>
-      <button class="btn w-full sm:w-auto">Agregar Banco de Reactivos</button>
+      <button @click="modalOpen = true" class="btn w-full sm:w-auto">
+        Agregar Banco de Reactivos
+      </button>
     </div>
   </div>
 
@@ -53,7 +55,7 @@
   </div>
 
   <!-- Modal de Creacion de Banco -->
-  <CrearbancoModal :open="modalOpen" />
+  <CrearbancoModal :open="modalOpen" @close="modalOpen = false" />
 
   <!-- "------------------------------------------------------------- FILTROS  ------------------------------------------------------------" -->
 
@@ -137,6 +139,7 @@
 
 <script setup lang="ts">
 import CrearbancoModal from '@/modules/common/components/CrearbancoModal.vue';
+import ConfigIcon from '@/modules/common/icons/configIcon.vue';
 import { ref } from 'vue';
 
 const modalOpen = ref(false);

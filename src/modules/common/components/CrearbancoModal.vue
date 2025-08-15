@@ -1,5 +1,5 @@
 <template>
-  <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle" :open="open">
+  <dialog class="modal modal-bottom sm:modal-middle" :open="open">
     <div class="modal-box">
       <form method="dialog" @submit.prevent="Submit">
         <fieldset class="fieldset">
@@ -22,7 +22,7 @@
           </div>
         </fieldset>
         <div class="modal-action">
-          <button class="btn">Close</button>
+          <button type="submit" @click="$emit('close')" class="btn">Close</button>
           <button type="submit" class="btn btn-primary">Aceptar</button>
         </div>
       </form>
