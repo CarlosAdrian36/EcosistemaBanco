@@ -140,9 +140,30 @@
 <script setup lang="ts">
 import CrearbancoModal from '@/modules/common/components/CrearbancoModal.vue';
 import ConfigIcon from '@/modules/common/icons/configIcon.vue';
-import { ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 
 const modalOpen = ref(false);
+
+// Funcion para acceso rapido para el buscador
+const searchInput = ref<HTMLInputElement | null>(null);
+const handleKeydown = (e: KeyboardEvent) => {
+  if (e.ctrlKey && e.key === 'k') {
+    e.preventDefault(); // Evita abrir búsqueda del navegador
+    if (searchInput.value) {
+      searchInput.value.focus();
+    }
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeydown);
+});
+
+// siguiente funcion
 </script>
 <style scoped>
 .sin {
