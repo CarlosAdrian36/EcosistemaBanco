@@ -1,5 +1,5 @@
 // services/mockReactivosService.ts
-import type { BancoReactivos } from '@/modules/BancoAdmin/interfaces/banco.interface';
+import type { Banco } from '@/modules/BancoAdmin/interfaces/banco.interface';
 
 const nombres: string[] = [
   'Banco de Matemáticas',
@@ -10,13 +10,20 @@ const nombres: string[] = [
   'Fisica III',
   'Fisica II',
   'Fisica I',
-  'Fisica',
+  'Quimica',
+  'Historia moderna de la inovacion ',
+  'Procedimientos lejitimos de la justicia ',
+  'Orientacion vocacional',
+  'Comportamientos del ser humano',
+  'Tenedencias en los jovenes  para el futuro de mexico',
+  'Vida y el proceso natural de la vida que nos envuelve en este mundo',
+  'Filosofia de la educaccion ',
 ];
 
-export const obtenerBancosReactivos = (cantidad: number = 9): Promise<BancoReactivos[]> => {
+export const obtenerBancosReactivos = (cantidad: number = 16): Promise<Banco[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      const bancos: BancoReactivos[] = Array.from({ length: cantidad }, (_, i) => {
+      const bancos: Banco[] = Array.from({ length: cantidad }, (_, i) => {
         const random = Math.random();
         let lenguaje: (2 | 3)[] = []; // Inicialmente vacío (cumple con la interfaz)
 
@@ -35,8 +42,9 @@ export const obtenerBancosReactivos = (cantidad: number = 9): Promise<BancoReact
         }
 
         return {
-          nombre: nombres[i % nombres.length],
+          Titulo: nombres[i % nombres.length],
           bancoId: `REACT-${1000 + i}`,
+          descripcion: 'xx',
           lenguaje,
         };
       });

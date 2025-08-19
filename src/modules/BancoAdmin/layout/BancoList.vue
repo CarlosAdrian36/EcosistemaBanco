@@ -163,7 +163,7 @@ onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeydown);
 });
 
-// siguiente funcion
+// Recivir bancos
 </script>
 <style scoped>
 .sin {

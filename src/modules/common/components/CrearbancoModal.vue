@@ -7,18 +7,17 @@
           <input ref="inputRef" type="text" class="input" placeholder="Titulo" v-model="titulo" />
           <legend class="fieldset-legend">Descripcion</legend>
           <input type="text" class="input" placeholder="Descripcion" v-model="descripcion" />
-          <div class="flex flex-col">
-            <label class="label pt-2 gap-4">
-              <div class="flex items-center gap-2">
-                <input type="checkbox" class="toggle toggle-md" v-model="ingles" />
-                Inglés
-              </div>
 
-              <div class="flex items-center gap-2">
-                <input type="checkbox" class="toggle toggle-md" v-model="frances" />
-                Francés
-              </div>
-            </label>
+          <div class="flex flex-col pt-2 gap-4">
+            <div class="flex items-center gap-2">
+              <input type="checkbox" class="toggle toggle-md" v-model="ingles" />
+              Inglés
+            </div>
+
+            <div class="flex items-center gap-2">
+              <input type="checkbox" class="toggle toggle-md" v-model="frances" />
+              Francés
+            </div>
           </div>
         </fieldset>
         <div class="modal-action">
@@ -30,6 +29,7 @@
   </dialog>
 </template>
 <script lang="ts" setup>
+import type { Banco } from '@/modules/BancoAdmin/interfaces/banco.interface';
 import { ref } from 'vue';
 
 const inputRef = ref<HTMLInputElement | null>(null);
@@ -46,26 +46,31 @@ defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'close'): void;
-  (
-    e: 'submit',
-    titulo: string,
-    descripcion: string,
-    traducciones: { ingles: number; frances: number },
-  ): void;
+  (e: 'submit', banco: Banco): void;
 }>();
 
 const Submit = () => {
-  console.log({ value: titulo.value });
-
   if (!titulo.value || !descripcion.value) {
     inputRef.value?.focus();
     return;
   }
-  emit('submit', titulo.value.trim(), descripcion.value.trim(), {
-    ingles: ingles.value,
-    frances: frances.value,
-  });
+
+  // Crear el objeto BancoReactivos
+  const nuevoBanco: Banco = {
+    bancoId: '23',
+    Titulo: titulo.value.trim(),
+    descripcion: descripcion.value.trim(),
+
+    lenguaje: [
+      ...(ingles.value ? [2] : []), // Asumo que 2 representa inglés
+      ...(frances.value ? [3] : []), // Asumo que 3 representa francés
+    ], // Filtra valores falsy y asegura el tipo
+  };
+  console.log(nuevoBanco);
+  emit('submit', nuevoBanco);
   emit('close');
+
+  // Resetear valores
   titulo.value = '';
   descripcion.value = '';
   ingles.value = 0;

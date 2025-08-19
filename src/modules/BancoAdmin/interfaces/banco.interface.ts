@@ -1,11 +1,12 @@
-export interface BancoReactivos {
-  nombre: string;
+export interface Banco {
+  Titulo: string;
   bancoId: string;
-  lenguaje: (3 | 2)[];
+  descripcion: string;
+  lenguaje: Lenguaje[] | null;
 }
 
-export type EstatusBanco = {
-  bancoId: string;
-  estatus: 'Pendiente' | 'Proceso' | 'Terminado' | 'Aprobado' | 'Rechazado' | 'Revision';
-  ultimaActualizacion: string;
-};
+enum Lenguaje {
+  Español = 1,
+  Ingles = 2,
+  Frances = 3,
+}
