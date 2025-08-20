@@ -1,5 +1,6 @@
 // services/mockReactivosService.ts
 import type { Banco } from '@/modules/BancoAdmin/interfaces/banco.interface';
+import { v4 as uuidv4 } from 'uuid';
 
 const nombres: string[] = [
   'Banco de Matemáticas',
@@ -20,7 +21,7 @@ const nombres: string[] = [
   'Filosofia de la educaccion ',
 ];
 
-export const obtenerBancosReactivos = (cantidad: number = 16): Promise<Banco[]> => {
+export const obtenerBancos = (cantidad: number = 16): Promise<Banco[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       const bancos: Banco[] = Array.from({ length: cantidad }, (_, i) => {
@@ -43,7 +44,7 @@ export const obtenerBancosReactivos = (cantidad: number = 16): Promise<Banco[]> 
 
         return {
           Titulo: nombres[i % nombres.length],
-          bancoId: `REACT-${1000 + i}`,
+          bancoId: uuidv4(),
           descripcion: 'xx',
           lenguaje,
         };

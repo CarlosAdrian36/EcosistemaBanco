@@ -10,13 +10,13 @@
 
           <div class="flex flex-col pt-2 gap-4">
             <div class="flex items-center gap-2">
-              <input type="checkbox" class="toggle toggle-md" v-model="ingles" />
               Inglés
+              <input type="checkbox" class="toggle toggle-md" v-model="ingles" />
             </div>
 
-            <div class="flex items-center gap-2">
-              <input type="checkbox" class="toggle toggle-md" v-model="frances" />
+            <div class="gap-2">
               Francés
+              <input type="checkbox" class="toggle toggle-md" v-model="frances" />
             </div>
           </div>
         </fieldset>

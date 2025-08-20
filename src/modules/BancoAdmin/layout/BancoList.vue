@@ -13,13 +13,13 @@
 
   <!-- "-------------------------------------------------------------  TARJETAS DE INFORNACION ------------------------------------------------------------" -->
 
-  <div class="flex flex-wrap gap-6 justify-center -mt-14 relative z-10">
+  <div v-if="!isLoading" class="flex flex-wrap gap-6 justify-center -mt-14 relative z-10">
     <div class="card bg-base-200 w-80 h-44 shadow-sm">
       <div class="card-body">
         <div class="stats shadow bg-base-100">
           <div class="stat">
             <div class="stat-title">Bancos</div>
-            <div class="stat-value">{{ 2 }}</div>
+            <div class="stat-value">{{ bancos?.length }}</div>
             <div class="stat-desc">Bancos creados</div>
           </div>
         </div>
@@ -48,7 +48,7 @@
       </div>
     </div>
   </div>
-  <div class="flex flex-wrap gap-6 justify-center -mt-14 relative z-10">
+  <div v-if="isLoading" class="flex flex-wrap gap-6 justify-center -mt-14 relative z-10">
     <div class="card bg-base-200 skeleton w-80 h-44 shadow-sm"></div>
     <div class="card bg-base-200 skeleton w-80 h-44 shadow-sm"></div>
     <div class="card bg-base-200 skeleton w-80 h-44 shadow-sm"></div>
@@ -107,25 +107,35 @@
 
       <tbody>
         <!-- Estado de carga -->
-        <tr>
+        <tr v-if="isLoading">
           <td colspan="4" class="text-center py-4">
             <span class="loading loading-spinner loading-lg"></span>
             <p>Cargando bancos de reactivos...</p>
           </td>
         </tr>
         <!-- Estado de error -->
-        <tr>
-          <td colspan="4" class="text-center text-error py-4">Error al cargar los datos:</td>
+        <tr v-if="isError">
+          <td colspan="4" class="text-center text-error py-4">Error al cargar los datos</td>
         </tr>
 
-        <tr class="hover:bg-base-300">
-          <th>#@$23d232</th>
+        <tr v-for="banco in bancos" :key="banco.bancoId" class="hover:bg-base-300">
+          <th>{{ banco.bancoId }}</th>
           <td>
-            <div class="break-words">Matematicas1</div>
+            <div class="break-words">{{ banco.Titulo }}</div>
           </td>
           <td>
-            <div class="break-words">Español ingle Frances</div>
-            <div class="flex flex-wrap gap-1"></div>
+            <!-- <div class="break-words">{{ banco.lenguaje }}</div> -->
+            <div class="flex flex-wrap gap-1">
+              <template v-for="idioma in banco.lenguaje" :key="idioma">
+                <div
+                  v-if="idioma === 2 || idioma === 3"
+                  class="tooltip"
+                  :data-tip="idiomaTraduccion[idioma].tooltip"
+                >
+                  <img :src="idiomaTraduccion[idioma].bandera" class="w-6 h-4 object-cover" />
+                </div>
+              </template>
+            </div>
           </td>
           <td>Pendiente</td>
           <td>
@@ -141,6 +151,8 @@
 import CrearbancoModal from '@/modules/common/components/CrearbancoModal.vue';
 import ConfigIcon from '@/modules/common/icons/configIcon.vue';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { obtenerBancos } from '../actions';
+import { useQuery } from '@tanstack/vue-query';
 
 const modalOpen = ref(false);
 
@@ -164,6 +176,26 @@ onBeforeUnmount(() => {
 });
 
 // Recivir bancos
+
+const {
+  data: bancos,
+  isLoading,
+  isError,
+} = useQuery({
+  queryKey: ['bancos'],
+  queryFn: () => obtenerBancos(),
+});
+
+const idiomaTraduccion = {
+  2: {
+    bandera: 'src/assets/banderas/estados-unidos-de-america.png',
+    tooltip: 'Inglés',
+  },
+  3: {
+    bandera: '/src/assets/banderas/francia.png',
+    tooltip: 'Francés',
+  },
+};
 </script>
 <style scoped>
 .sin {
