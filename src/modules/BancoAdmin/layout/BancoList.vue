@@ -137,7 +137,9 @@
               </template>
             </div>
           </td>
-          <td>Pendiente</td>
+          <td>
+            <BancoEstatus :bancoId="banco.bancoId" />
+          </td>
           <td>
             <RouterLink class="btn btn-xs btn-ghost" :to="``"><ConfigIcon /> </RouterLink>
           </td>
@@ -153,6 +155,7 @@ import ConfigIcon from '@/modules/common/icons/configIcon.vue';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { obtenerBancos } from '../actions';
 import { useQuery } from '@tanstack/vue-query';
+import BancoEstatus from '../views/BancoEstatus.vue';
 
 const modalOpen = ref(false);
 
@@ -175,8 +178,7 @@ onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeydown);
 });
 
-// Recivir bancos
-
+// obtener bancos
 const {
   data: bancos,
   isLoading,
@@ -185,7 +187,7 @@ const {
   queryKey: ['bancos'],
   queryFn: () => obtenerBancos(),
 });
-
+// banderas
 const idiomaTraduccion = {
   2: {
     bandera: 'src/assets/banderas/estados-unidos-de-america.png',
