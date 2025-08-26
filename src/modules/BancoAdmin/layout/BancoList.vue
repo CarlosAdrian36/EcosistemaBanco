@@ -30,7 +30,7 @@
         <div class="stats shadow bg-base-100">
           <div class="stat">
             <div class="stat-title">Terminado</div>
-            <div class="stat-value">{{ 3 }}</div>
+            <div class="stat-value">{{}}</div>
             <div class="stat-desc">Bancos Revisados y listos para usar</div>
           </div>
         </div>
@@ -57,12 +57,14 @@
   <!-- Modal de Creacion de Banco -->
   <CrearbancoModal :open="modalOpen" @close="modalOpen = false" />
 
+  <ConfigBanco :openedit="modalConfig" @close="modalConfig = false" />
+
   <!-- "------------------------------------------------------------- FILTROS  ------------------------------------------------------------" -->
 
   <!-- Filtros de Seleccion -->
   <div class="flex flex-row justify-center mt-10">
     <form class="filter">
-      <input class="btn btn-square" type="reset" value="×" />
+      <input class="btn btn-square" type="reset" value="×" @click="resetFiltros" />
       <input class="btn" type="radio" name="frameworks" aria-label="Aprobado" value="Aprobado" />
       <input class="btn" type="radio" name="frameworks" aria-label="Pendiente" value="Pendiente" />
       <input class="btn" type="radio" name="frameworks" aria-label="Proceso" value="Proceso" />
@@ -118,8 +120,12 @@
           <td colspan="4" class="text-center text-error py-4">Error al cargar los datos</td>
         </tr>
 
-        <tr v-for="banco in bancos" :key="banco.bancoId" class="hover:bg-base-300">
-          <th>{{ banco.bancoId }}</th>
+        <tr
+          v-for="(banco, index) in bancosFiltrados"
+          :key="banco.bancoId"
+          class="hover:bg-base-300"
+        >
+          <th>{{ index }}</th>
           <td>
             <div class="break-words">{{ banco.Titulo }}</div>
           </td>
@@ -141,7 +147,12 @@
             <BancoEstatus :bancoId="banco.bancoId" />
           </td>
           <td>
-            <RouterLink class="btn btn-xs btn-ghost" :to="``"><ConfigIcon /> </RouterLink>
+            <button @click="modalConfig = true" class="btn btn-ghost btn-circle">
+              <ConfigIcon />
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-soft btn-error btn-circle"><DeleteIcon /></button>
           </td>
         </tr>
       </tbody>
@@ -152,13 +163,17 @@
 <script setup lang="ts">
 import CrearbancoModal from '@/modules/common/components/CrearbancoModal.vue';
 import ConfigIcon from '@/modules/common/icons/configIcon.vue';
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { obtenerBancos } from '../actions';
 import { useQuery } from '@tanstack/vue-query';
 import BancoEstatus from '../views/BancoEstatus.vue';
+import DeleteIcon from '@/modules/common/icons/deleteIcon.vue';
+import ConfigBanco from '../views/ConfigBanco.vue';
 
 const modalOpen = ref(false);
-
+const modalConfig = ref(false);
+const filtroEstado = ref('');
+const terminoBusqueda = ref('');
 // Funcion para acceso rapido para el buscador
 const searchInput = ref<HTMLInputElement | null>(null);
 const handleKeydown = (e: KeyboardEvent) => {
@@ -198,6 +213,36 @@ const idiomaTraduccion = {
     tooltip: 'Francés',
   },
 };
+
+// Función para resetear filtros
+const resetFiltros = () => {
+  filtroEstado.value = '';
+  terminoBusqueda.value = '';
+};
+
+// Computed property para bancos filtrados
+const bancosFiltrados = computed(() => {
+  if (!bancos.value) return [];
+
+  let resultado = [...bancos.value];
+
+  // Filtrar por estado si hay un filtro seleccionado
+  if (filtroEstado.value) {
+    resultado = resultado.filter((banco) => {
+      // Asumiendo que cada banco tiene una propiedad 'estatus'
+      // Si no es así, necesitarías ajustar esta lógica
+      return banco;
+    });
+  }
+
+  // Filtrar por término de búsqueda si existe
+  if (terminoBusqueda.value) {
+    const termino = terminoBusqueda.value.toLowerCase();
+    resultado = resultado.filter((banco) => banco.Titulo.toLowerCase().includes(termino));
+  }
+
+  return resultado;
+});
 </script>
 <style scoped>
 .sin {

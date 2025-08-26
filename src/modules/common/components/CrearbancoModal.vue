@@ -8,17 +8,20 @@
           <legend class="fieldset-legend">Descripcion</legend>
           <input type="text" class="input" placeholder="Descripcion" v-model="descripcion" />
 
-          <div class="flex flex-col pt-2 gap-4">
-            <div class="flex items-center gap-2">
-              Inglés
-              <input type="checkbox" class="toggle toggle-md" v-model="ingles" />
-            </div>
+          <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+            <legend class="fieldset-legend">Traducciones</legend>
+            <div class="flex flex-col pt-2 gap-4">
+              <div class="flex items-center gap-2">
+                Inglés
+                <input type="checkbox" class="toggle toggle-md" v-model="ingles" />
+              </div>
 
-            <div class="gap-2">
-              Francés
-              <input type="checkbox" class="toggle toggle-md" v-model="frances" />
+              <div class="gap-2">
+                Francés
+                <input type="checkbox" class="toggle toggle-md" v-model="frances" />
+              </div>
             </div>
-          </div>
+          </fieldset>
         </fieldset>
         <div class="modal-action">
           <button type="submit" @click="$emit('close')" class="btn">Close</button>

@@ -82,6 +82,7 @@ const estatusIcon = computed(() => {
     case 'Revision':
       return EyeIcon;
     default:
+      console.log(data.value.estatus, '#');
       return QuestionMarkCircleIcon;
   }
 });
