@@ -30,7 +30,7 @@
         <div class="stats shadow bg-base-100">
           <div class="stat">
             <div class="stat-title">Terminado</div>
-            <div class="stat-value">{{}}</div>
+            <div class="stat-value">{{ 7 }}</div>
             <div class="stat-desc">Bancos Revisados y listos para usar</div>
           </div>
         </div>
@@ -151,6 +151,21 @@
               <ConfigIcon />
             </button>
           </td>
+          <td>
+            <div class="avatar-group -space-x-6">
+              <div class="avatar avatar-placeholder">
+                <div class="bg-neutral text-neutral-content w-8 rounded-full">
+                  <span class="text-xs">UI</span>
+                </div>
+              </div>
+              <div class="avatar avatar-placeholder">
+                <div class="bg-neutral text-neutral-content w-8 rounded-full">
+                  <span class="text-xs">UI</span>
+                </div>
+              </div>
+            </div>
+          </td>
+
           <td>
             <button class="btn btn-soft btn-error btn-circle"><DeleteIcon /></button>
           </td>

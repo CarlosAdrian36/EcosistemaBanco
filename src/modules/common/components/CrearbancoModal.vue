@@ -4,11 +4,22 @@
       <form method="dialog" @submit.prevent="Submit">
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Nombre del banco</legend>
-          <input ref="inputRef" type="text" class="input" placeholder="Titulo" v-model="titulo" />
+          <input
+            ref="inputRef"
+            type="text"
+            class="input min-w-full"
+            placeholder="Titulo"
+            v-model="titulo"
+          />
           <legend class="fieldset-legend">Descripcion</legend>
-          <input type="text" class="input" placeholder="Descripcion" v-model="descripcion" />
+          <input
+            type="text"
+            class="input min-w-full"
+            placeholder="Descripcion"
+            v-model="descripcion"
+          />
 
-          <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+          <fieldset class="fieldset bg-base-200 border-base-300 rounded-box min-w-full border p-4">
             <legend class="fieldset-legend">Traducciones</legend>
             <div class="flex flex-col pt-2 gap-4">
               <div class="flex items-center gap-2">
