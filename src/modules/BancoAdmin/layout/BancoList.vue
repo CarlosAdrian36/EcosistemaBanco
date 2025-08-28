@@ -121,9 +121,10 @@
         </tr>
 
         <tr
-          v-for="(banco, index) in bancosFiltrados"
+          v-for="(banco, index) in bancos"
           :key="banco.bancoId"
-          class="hover:bg-base-300"
+          class="hover:bg-base-300 cursor-pointer"
+          @click="irAlBanco(banco.bancoId)"
         >
           <th>{{ index }}</th>
           <td>
@@ -178,12 +179,13 @@
 <script setup lang="ts">
 import CrearbancoModal from '@/modules/common/components/CrearbancoModal.vue';
 import ConfigIcon from '@/modules/common/icons/configIcon.vue';
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { obtenerBancos } from '../actions';
 import { useQuery } from '@tanstack/vue-query';
 import BancoEstatus from '../views/BancoEstatus.vue';
 import DeleteIcon from '@/modules/common/icons/deleteIcon.vue';
 import ConfigBanco from '../views/ConfigBanco.vue';
+import router from '@/router';
 
 const modalOpen = ref(false);
 const modalConfig = ref(false);
@@ -235,29 +237,9 @@ const resetFiltros = () => {
   terminoBusqueda.value = '';
 };
 
-// Computed property para bancos filtrados
-const bancosFiltrados = computed(() => {
-  if (!bancos.value) return [];
-
-  let resultado = [...bancos.value];
-
-  // Filtrar por estado si hay un filtro seleccionado
-  if (filtroEstado.value) {
-    resultado = resultado.filter((banco) => {
-      // Asumiendo que cada banco tiene una propiedad 'estatus'
-      // Si no es así, necesitarías ajustar esta lógica
-      return banco;
-    });
-  }
-
-  // Filtrar por término de búsqueda si existe
-  if (terminoBusqueda.value) {
-    const termino = terminoBusqueda.value.toLowerCase();
-    resultado = resultado.filter((banco) => banco.Titulo.toLowerCase().includes(termino));
-  }
-
-  return resultado;
-});
+const irAlBanco = (bancoId: string) => {
+  router.push(`/banco/${bancoId}`); // Ajusta la ruta según tu configuración
+};
 </script>
 <style scoped>
 .sin {
