@@ -1,6 +1,5 @@
 import { authRoutes } from '@/modules/auth/routes';
 import BancoLayout from '@/modules/Banco/layout/BancoLayout.vue';
-import BancoDetalle from '@/modules/BancoAdmin/views/BancoDetalle.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
@@ -17,13 +16,13 @@ const router = createRouter({
           name: 'Admin',
           component: () => import('@/modules/BancoAdmin/layout/BancoList.vue'),
         },
+        {
+          path: '/BancoDetalle',
+          name: 'BancoDetalle',
+          component: () => import('@/modules/BancoAdmin/views/BancoDetalle.vue'),
+          props: true,
+        },
       ],
-    },
-    {
-      path: '/banco/:id',
-      name: 'BancoDetalle',
-      component: BancoDetalle,
-      props: true,
     },
     authRoutes,
   ],

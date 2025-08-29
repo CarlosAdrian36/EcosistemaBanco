@@ -26,7 +26,7 @@
             <router-link to="">Banco Representante del CAD</router-link>
           </li>
           <li>
-            <router-link to=""> Bancos Revisor</router-link>
+            <router-link :to="{ name: 'BancoDetalle' }"> Bancos Revisor</router-link>
           </li>
           <li>
             <router-link to=""> Banco Elaborador</router-link>

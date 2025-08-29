@@ -124,7 +124,6 @@
           v-for="(banco, index) in bancos"
           :key="banco.bancoId"
           class="hover:bg-base-300 cursor-pointer"
-          @click="irAlBanco(banco.bancoId)"
         >
           <th>{{ index }}</th>
           <td>
@@ -170,6 +169,7 @@
           <td>
             <button class="btn btn-soft btn-error btn-circle"><DeleteIcon /></button>
           </td>
+          <!--  -->
         </tr>
       </tbody>
     </table>
@@ -185,7 +185,6 @@ import { useQuery } from '@tanstack/vue-query';
 import BancoEstatus from '../views/BancoEstatus.vue';
 import DeleteIcon from '@/modules/common/icons/deleteIcon.vue';
 import ConfigBanco from '../views/ConfigBanco.vue';
-import router from '@/router';
 
 const modalOpen = ref(false);
 const modalConfig = ref(false);
@@ -235,10 +234,6 @@ const idiomaTraduccion = {
 const resetFiltros = () => {
   filtroEstado.value = '';
   terminoBusqueda.value = '';
-};
-
-const irAlBanco = (bancoId: string) => {
-  router.push(`/banco/${bancoId}`); // Ajusta la ruta según tu configuración
 };
 </script>
 <style scoped>
