@@ -26,10 +26,10 @@
             <router-link :to="{ name: 'Admin' }">Banco Representante del CAD</router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'BancoDetalle' }"> Bancos Revisor</router-link>
+            <router-link :to="{ name: 'BancoDetalle' }"> Elaborador</router-link>
           </li>
           <li>
-            <router-link to=""> Banco Elaborador</router-link>
+            <router-link to=""> Revisor</router-link>
           </li>
         </ul>
       </div>

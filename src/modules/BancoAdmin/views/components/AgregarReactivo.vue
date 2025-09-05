@@ -1,11 +1,19 @@
 <template>
-  <dialog class="modal modal-bottom sm:modal-middle" :open="open">
+  <dialog id="my_modal_1" class="modal w-full" :open="open">
     <div class="modal-box">
-      <h1>Aqui se crearan los reactivos</h1>
-    </div>
-    <div class="modal-action">
-      <button type="submit" @click="$emit('close')" class="btn">Close</button>
-      <button type="submit" class="btn btn-primary">Aceptar</button>
+      <ul class="steps">
+        <li class="step step-primary">Crear Reactivo</li>
+        <li class="step">Elije la correcta</li>
+        <li class="step">Verificar</li>
+        <li class="step">Listo</li>
+      </ul>
+      <h3 class="text-lg font-bold">Reactivo</h3>
+
+      <div class="modal-action">
+        <form method="dialog">
+          <button class="btn">Close</button>
+        </form>
+      </div>
     </div>
   </dialog>
 </template>

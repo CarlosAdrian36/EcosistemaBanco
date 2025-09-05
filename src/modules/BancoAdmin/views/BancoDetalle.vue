@@ -21,16 +21,6 @@
       </div>
       <div class="flex justify-between pt-4">
         <div class="avatar-group -space-x-6">
-          <!-- <div class="avatar">
-            <div class="w-12 rounded-xl">
-              <img src="https://img.daisyui.com/images/profile/demo/yellingwoman@192.webp" />
-            </div>
-          </div>
-          <div class="avatar">
-            <div class="w-12 rounded-full">
-              <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
-            </div>
-          </div> -->
           <button @click="Miembrosopen = true" class="btn btn-soft btn-info">Miembros</button>
         </div>
         <button @click="Agregaropen = true" class="btn btn-soft btn-primary">
@@ -43,6 +33,64 @@
   <AgregarReactivo :open="Agregaropen" @close="Agregaropen = false" />
   <div class="">
     <div class="px-30 py-5">
+      <div class="collapse bg-base-200 border-base-300 border">
+        <input type="checkbox" />
+        <div class="collapse-title font-semibold flex justify-center">Crear Reactivo</div>
+        <div class="collapse-content text-sm">
+          <div class="flex">
+            <div class="p-6">{{ data?.length + 1 }}.-</div>
+            <div class="w-full">
+              <textarea class="textarea w-full" placeholder="Pregunta"></textarea>
+              <div class="grid grid-cols-[4rem_auto_4rem] pt-7">
+                <div class="flex justify-center items-center">
+                  <input type="checkbox" class="checkbox checkbox-success" />
+                </div>
+                <div class="form-control mt-4">
+                  <label class="label">
+                    <!-- <span class="label-text">Respuesta 1</span> -->
+                  </label>
+                  <textarea
+                    @input="handleResize"
+                    class="textarea textarea-bordered w-full resize-none overflow-hidden min-h-[2.5rem]"
+                    placeholder="Opcion 1"
+                    :rows="1"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="grid grid-cols-[4rem_auto_4rem] pt-7">
+                <div class="flex justify-center items-center">
+                  <input type="checkbox" class="checkbox checkbox-success" />
+                </div>
+                <div>
+                  <textarea
+                    @input="handleResize"
+                    class="textarea textarea-bordered w-84 resize-none overflow-hidden min-h-[1rem]"
+                    placeholder="Opcion 1"
+                    :rows="1"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="grid grid-cols-[4rem_auto_4rem] pt-7">
+                <div class="flex justify-center items-center">
+                  <input type="checkbox" class="checkbox checkbox-success" />
+                </div>
+                <div>
+                  <input type="text" placeholder="Opcion1" class="input input-sm" />
+                </div>
+              </div>
+              <div class="grid grid-cols-[4rem_auto_4rem] pt-7">
+                <div class="flex justify-center items-center">
+                  <input type="checkbox" class="checkbox checkbox-success" />
+                </div>
+                <div>
+                  <input type="text" placeholder="Opcion1" class="input input-sm" />
+                </div>
+              </div>
+              <div class="pt-6flex"></div>
+            </div>
+          </div>
+        </div>
+      </div>
       <h1 class="text-5xl font-bold flex justify-center p-4">Reactivos</h1>
 
       <div class="overflow-x-auto">
@@ -58,10 +106,14 @@
           </thead>
           <tbody>
             <!-- row 1 -->
-            <tr>
-              <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
+            <tr
+              v-for="(reactivo, index) in data"
+              :key="reactivo.ReactivoId"
+              class="hover:bg-base-300 cursor-pointer"
+            >
+              <th>{{ index + 1 }}</th>
+              <td>{{ reactivo.Reactivo }}</td>
+              <td>{{ reactivo.estatus }}</td>
               <td>
                 <div class="flex items-center">
                   <img
@@ -80,109 +132,14 @@
                     alt=""
                   />
                   <div class="ps-2">
-                    <progress class="progress progress-primary w-56" value="4" max="100"></progress>
+                    <progress
+                      class="progress progress-primary w-56"
+                      value="88"
+                      max="100"
+                    ></progress>
                   </div>
                 </div>
               </td>
-            </tr>
-            <!-- row 2 -->
-            <tr class="hover:bg-base-300 cursor-pointer">
-              <th>2</th>
-              <td>
-                <p class="line-clamp-3">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti officiis qui
-                  atque nostrum nesciunt nam voluptas delectus velit excepturi! Tenetur omnis quasi
-                  quos, possimus aliquid numquam adipisci itaque temporibus facere! Lorem ipsum
-                  dolor sit amet, consectetur adipisicing elit. Perspiciatis reiciendis sit sunt
-                  voluptatum quod. Repellendus, eum totam. Eum animi, odit cumque fuga at iusto
-                  dolorem eaque voluptates itaque ad. Molestiae. Lorem ipsum dolor, sit amet
-                  consectetur adipisicing elit. Nesciunt at id iusto impedit esse laboriosam
-                  asperiores dolorum inventore natus quod dolorem doloribus autem consectetur
-                  molestiae, est consequatur voluptatibus, quaerat alias.
-                </p>
-              </td>
-              <td>Desktop Support Technician</td>
-              <td>Purple</td>
-            </tr>
-            <!-- row 3 -->
-            <tr>
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
-            <tr>
-              <th>4</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
-            <tr>
-              <th>5</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
-            <tr>
-              <th>6</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
-            <tr>
-              <th>7</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
-
-            <tr>
-              <th>9</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
-            <tr>
-              <th>10</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
-            <tr>
-              <th>11</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
-            <tr>
-              <th>12</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
-            <tr>
-              <th>13</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
-            <tr>
-              <th>14</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
-            <tr>
-              <th>15</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
-            <tr>
-              <th>16</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
             </tr>
           </tbody>
         </table>
@@ -195,7 +152,16 @@ import EditIcon from '@/modules/common/icons/editIcon.vue';
 import { ref } from 'vue';
 import BancoMiembros from './components/BancoMiembros.vue';
 import AgregarReactivo from './components/AgregarReactivo.vue';
+import { useReactivosQuery } from '../composables/useListReactivos';
 
 const Miembrosopen = ref(false);
 const Agregaropen = ref(false);
+
+const { data } = useReactivosQuery();
+
+const handleResize = (event) => {
+  const textarea = event.target;
+  textarea.style.height = 'auto';
+  textarea.style.height = `${textarea.scrollHeight}px`;
+};
 </script>

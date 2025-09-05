@@ -7,12 +7,12 @@
         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
       </form>
 
-      <h3 class="font-bold text-lg mb-6 text-center">Selector de Miembros</h3>
+      <h3 class="font-bold text-lg mb-6 text-center">Integrantes</h3>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Columna 1 - Lista de miembros disponibles -->
         <div class="border-2 p-4 rounded-lg">
-          <h2 class="text-xl font-semibold mb-4 text-center">Miembros Disponibles</h2>
+          <h2 class="text-xl font-semibold mb-4 text-center">Disponibles</h2>
           <div class="overflow-y-auto max-h-[300px] space-y-2">
             <div
               v-for="person in availableMembers"
@@ -43,7 +43,7 @@
 
         <!-- Columna 2 - Miembros asignados -->
         <div class="border-2 p-4 rounded-lg">
-          <h2 class="text-xl font-semibold mb-4 text-center">Miembros Asignados Al Banco</h2>
+          <h2 class="text-xl font-semibold mb-4 text-center">Asignados</h2>
           <div class="overflow-y-auto max-h-[300px] space-y-2">
             <div
               v-for="person in assignedMembers"
@@ -60,13 +60,11 @@
                   <div class="font-medium">{{ person.name }}</div>
                 </div>
               </div>
-              <select class="select select-xs compact-select mx-2" v-model="person.role">
-                <option disabled value="">Rol</option>
+              <select class="select">
+                <option disabled selected>pick a color</option>
                 <option>Revisor</option>
-                <option>Creador</option>
                 <option>Traductor</option>
-                <option>Editor</option>
-                <option>Consultor</option>
+                <option>Elaborador</option>
               </select>
 
               <button @click="unassignMember(person)" class="btn btn-error btn-sm">← Quitar</button>
