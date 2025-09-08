@@ -18,21 +18,24 @@
             placeholder="Descripcion"
             v-model="descripcion"
           />
+          <div v-if="traduccion === false">
+            <fieldset
+              class="fieldset bg-base-200 border-base-300 rounded-box min-w-full border p-4"
+            >
+              <legend class="fieldset-legend">Traducciones</legend>
+              <div class="flex flex-col pt-2 gap-4">
+                <div class="flex items-center gap-2">
+                  Inglés
+                  <input type="checkbox" class="toggle toggle-md" v-model="ingles" />
+                </div>
 
-          <fieldset class="fieldset bg-base-200 border-base-300 rounded-box min-w-full border p-4">
-            <legend class="fieldset-legend">Traducciones</legend>
-            <div class="flex flex-col pt-2 gap-4">
-              <div class="flex items-center gap-2">
-                Inglés
-                <input type="checkbox" class="toggle toggle-md" v-model="ingles" />
+                <div class="gap-2">
+                  Francés
+                  <input type="checkbox" class="toggle toggle-md" v-model="frances" />
+                </div>
               </div>
-
-              <div class="gap-2">
-                Francés
-                <input type="checkbox" class="toggle toggle-md" v-model="frances" />
-              </div>
-            </div>
-          </fieldset>
+            </fieldset>
+          </div>
         </fieldset>
         <div class="modal-action">
           <button type="submit" @click="$emit('close')" class="btn">Close</button>
@@ -55,6 +58,7 @@ const frances = ref(3);
 
 interface Props {
   open: boolean;
+  traduccion?: boolean;
 }
 defineProps<Props>();
 

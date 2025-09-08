@@ -14,7 +14,7 @@
   <!-- "-------------------------------------------------------------  TARJETAS DE INFORNACION ------------------------------------------------------------" -->
 
   <div v-if="!isLoading" class="flex flex-wrap gap-6 justify-center -mt-14 relative z-10">
-    <div class="card bg-base-200 w-80 h-44 shadow-sm">
+    <div class="card bg-base-200 w-70 h-44 shadow-sm">
       <div class="card-body">
         <div class="stats shadow bg-base-100">
           <div class="stat">
@@ -55,7 +55,7 @@
   </div>
 
   <!-- Modal de Creacion de Banco -->
-  <CrearbancoModal :open="modalOpen" @close="modalOpen = false" />
+  <CrearbancoModal :open="modalOpen" @close="modalOpen = false" :traduccion="false" />
 
   <ConfigBanco :openedit="modalConfig" @close="modalConfig = false" />
 
