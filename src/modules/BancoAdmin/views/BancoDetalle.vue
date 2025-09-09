@@ -35,7 +35,7 @@
   <AgregarReactivo :open="Agregaropen" @close="Agregaropen = false" />
   <div class="">
     <div class="px-30 py-5">
-      <div class="collapse collapse-plus bg-neutral-content border-base-300 border">
+      <div class="collapse collapse-plus bg-base-300 border-base-300 border">
         <input type="checkbox" />
         <div class="collapse-title font-semibold flex justify-center">Crear Reactivo</div>
         <div class="collapse-content text-sm">

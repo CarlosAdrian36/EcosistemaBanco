@@ -60,8 +60,8 @@
                   <div class="font-medium">{{ person.name }}</div>
                 </div>
               </div>
-              <select class="select">
-                <option disabled selected>pick a color</option>
+              <select class="select max-w-48">
+                <option disabled selected>Rol a asignar</option>
                 <option>Revisor</option>
                 <option>Traductor</option>
                 <option>Elaborador</option>
@@ -81,7 +81,7 @@
 
     <!-- Cerrar al hacer clic fuera del modal -->
     <form method="dialog" class="modal-backdrop">
-      <button @click="openModal = false">Cerrar</button>
+      <!-- <button @click="openModal = false">Cerrar</button> -->
     </form>
   </dialog>
 </template>

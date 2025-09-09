@@ -23,13 +23,13 @@
           class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
         >
           <li>
-            <router-link :to="{ name: 'Admin' }">Banco Representante del CAD</router-link>
+            <router-link :to="{ name: 'Admin' }">Bancos</router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'BancoDetalle' }"> Elaborador</router-link>
+            <router-link :to="{ name: 'BancoDetalle' }"> Banco Detalle</router-link>
           </li>
           <li>
-            <router-link to=""> Revisor</router-link>
+            <router-link :to="{ name: 'Reactivo' }"> Reactivo Detalle</router-link>
           </li>
         </ul>
       </div>
