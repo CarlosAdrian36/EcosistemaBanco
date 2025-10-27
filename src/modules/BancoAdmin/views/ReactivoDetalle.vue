@@ -1,20 +1,38 @@
 <script setup lang="ts">
 import SendIcon from '@/modules/common/icons/sendIcon.vue';
+import { ref } from 'vue';
+type OpcionType = 'opcionA' | 'opcionB' | 'opcionC' | 'opcionD';
+const selectedOptions = ref<OpcionType[]>([]);
+const handleResize = (event) => {
+  const textarea = event.target;
+  textarea.style.height = 'auto';
+  textarea.style.height = `${textarea.scrollHeight}px`;
+};
+
+const texto: string = 'Aun se puede editar el reactivo ';
 </script>
 
 <template>
   <div class="grid grid-flow-row-dense grid-cols-3 gap-5">
-    <div class="col-span-2 border-2 bg-base-100">
+    <div class="col-span-2 bg-base-100">
       <div class="p-9">
         <div class="flex justify-end pt-4 gap-4">
           <div class="flex w-2xs gap-4 pb-4">
-            <select class="select select-sm">
+            <div
+              v-if="selectedOptions.includes('opcionA') || selectedOptions.includes('opcionC')"
+              class="grid grid-cols-2"
+            >
+              <div class="badge badge-info">Etapa 2</div>
+              <div class="badge badge-info">Nivel Cognitivo 2</div>
+            </div>
+
+            <select v-if="selectedOptions.includes('opcionB')" class="select select-sm">
               <option disabled selected>Etapa</option>
               <option>E1</option>
               <option>E2</option>
               <option>E3</option>
             </select>
-            <select class="select select-sm">
+            <select v-if="selectedOptions.includes('opcionB')" class="select select-sm">
               <option disabled selected>Nivel Cognitivo</option>
               <option>Nivel 1</option>
               <option>Nivel 2</option>
@@ -22,12 +40,76 @@ import SendIcon from '@/modules/common/icons/sendIcon.vue';
               <option>Nivel 4</option>
             </select>
           </div>
-          <!-- <button class="btn btn-primary">Aceptar</button> -->
         </div>
         <div>
-          <div class="card card-dash shadow-lg">
+          <div v-if="selectedOptions.includes('opcionB')">
+            <!-- editor -->
+            <div class="card card-dash shadow-lg">
+              <div class="card-body">
+                <div class="">
+                  <div class="flex">
+                    <div class="font-bold pe-2">36.-</div>
+                    <textarea
+                      @input="handleResize"
+                      class="textarea textarea-bordered w-full resize-none overflow-hidden min-h-[2.5rem]"
+                      placeholder="Opcion 3"
+                      :rows="1"
+                      v-model="texto"
+                    ></textarea>
+                  </div>
+                  <div>
+                    <div class="pt-6 w-fit">
+                      <div class="flex">
+                        <p class="p-2">1)</p>
+                        <textarea
+                          @input="handleResize"
+                          class="textarea textarea-bordered w-full resize-none overflow-hidden min-h-[2.5rem]"
+                          placeholder="Opcion 1"
+                          :rows="1"
+                        ></textarea>
+                      </div>
+                      <div class="flex pt-6">
+                        <p class="p-2">2)</p>
+                        <textarea
+                          @input="handleResize"
+                          class="textarea textarea-bordered w-full resize-none overflow-hidden min-h-[2.5rem]"
+                          placeholder="Opcion 2"
+                          :rows="1"
+                        >
+                        </textarea>
+                      </div>
+                      <div class="flex pt-6">
+                        <p class="p-2">3)</p>
+                        <textarea
+                          @input="handleResize"
+                          class="textarea textarea-bordered w-full resize-none overflow-hidden min-h-[2.5rem]"
+                          placeholder="Opcion 3"
+                          :rows="1"
+                        ></textarea>
+                      </div>
+                      <div class="flex pt-6">
+                        <p class="p-2">4)</p>
+                        <textarea
+                          @input="handleResize"
+                          class="textarea textarea-bordered w-full resize-none overflow-hidden min-h-[2.5rem]"
+                          placeholder="Opcion 4"
+                          :rows="1"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-actions justify-end">
+                  <!-- <button class="btn btn-primary">Guardar</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            v-if="selectedOptions.includes('opcionC') || selectedOptions.includes('opcionA')"
+            class="card card-dash shadow-lg"
+          >
             <div class="card-body">
-              <!-- <h2 class="card-title">Card Title</h2> -->
               <div class="flex">
                 <div class="font-bold pe-2">36.-</div>
                 <div>
@@ -59,49 +141,37 @@ import SendIcon from '@/modules/common/icons/sendIcon.vue';
                 </div>
               </div>
               <div class="card-actions justify-end">
-                <button class="btn btn-primary">Guardar</button>
+                <!-- <button class="btn btn-primary">Guardar</button> -->
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- chat de observaciones -->
-    <div class="border-2">
+    <div v-if="selectedOptions.includes('opcionC') || selectedOptions.includes('opcionA')">
       <div class="p-9">
-        <!-- Cuadro donde estan los mensajes -->
-        <!-- <div class="">
-          <div class="max-h-full">
-            <div class="chat chat-end">
-              <div class="chat-image avatar"></div>
-              <div class="chat-header">
-                Obi-Wan Kenobi
-                <time class="text-xs opacity-50">12:45</time>
-              </div>
-              <div class="chat-bubble">You were the Chosen One!</div>
-              <div class="chat-footer opacity-50">Delivered</div>
-            </div>
-            <div class="chat chat-end">
-              <div class="chat-header">Anakin</div>
-              <div class="chat-bubble">I hate you!</div>
-            </div>
-          </div>
-          <div class="flex pt-3">
-            <input type="input" placeholder="Observacion" class="input w-full" />
-            <div class="ps-2">
-              <button class="btn btn-active btn-circle btn-primary"><SendIcon /></button>
-            </div>
-          </div>
-        </div> -->
         <div class="grid max-h-screen grid-cols-1">
           <div class="max-h-screen">
             <div class="chat chat-end">
-              <div class="chat-bubble">You underestimate my power!</div>
+              <div class="chat-bubble">Corriije la ortografia</div>
+            </div>
+            <div class="chat chat-end">
+              <div class="chat-bubble">Corriije la ortografia</div>
+            </div>
+            <div class="chat chat-end">
+              <div class="chat-bubble">Corriije la ortografia</div>
+            </div>
+            <div class="chat chat-end">
+              <div class="chat-bubble">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga accusantium deleniti,
+                ullam iure asperiores quis commodi qui sit aspernatur harum quia dolor optio
+                quibusdam in nemo quo! Numquam, delectus a.
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 content-end gap-4">
+        <div v-if="selectedOptions.includes('opcionC')" class="grid grid-cols-1 content-end gap-4">
           <div>
             <div class="flex pt-3">
               <input type="input" placeholder="Observacion" class="input w-full" />
@@ -113,18 +183,39 @@ import SendIcon from '@/modules/common/icons/sendIcon.vue';
         </div>
       </div>
     </div>
-    <!-- <div class="card card-border bg-base-100 w-96">
-      <div class="card-body">
-        <h2 class="card-title">Card Title</h2>
-        <p>
-          A card component has a figure, a body part, and inside body there are title and actions
-          parts
-        </p>
-        <div class="card-actions justify-end">
-          <button class="btn btn-primary">Buy Now</button>
-        </div>
+
+    <div v-if="selectedOptions.includes('opcionC')" class="flex justify-center">
+      <div class="">
+        <button class="btn btn-success">Aprobado</button>
       </div>
-    </div> -->
+      <div class="ps-5">
+        <button class="btn btn-error">Rechazado</button>
+      </div>
+    </div>
+  </div>
+  <div class="pt-5">
+    <!-- Grupo de checkboxes -->
+    <div class="form-control">
+      <label class="label cursor-pointer">
+        <span class="label-text">administrador</span>
+        <input type="checkbox" v-model="selectedOptions" value="opcionA" class="checkbox" checked />
+      </label>
+
+      <label class="label cursor-pointer">
+        <span class="label-text">Elaborador</span>
+        <input type="checkbox" v-model="selectedOptions" value="opcionB" class="checkbox" />
+      </label>
+
+      <label class="label cursor-pointer">
+        <span class="label-text">Revisor</span>
+        <input type="checkbox" v-model="selectedOptions" value="opcionC" class="checkbox" />
+      </label>
+
+      <label class="label cursor-pointer">
+        <span class="label-text">Traductor</span>
+        <input type="checkbox" v-model="selectedOptions" value="opcionD" class="checkbox" />
+      </label>
+    </div>
   </div>
 </template>
 

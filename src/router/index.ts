@@ -27,6 +27,11 @@ const router = createRouter({
           name: 'Reactivo',
           component: () => import('@/modules/BancoAdmin/views/ReactivoDetalle.vue'),
         },
+        {
+          path: 'Traduccion',
+          name: 'Traduccion',
+          component: () => import('@/modules/BancoAdmin/views/Traduccion.vue'),
+        },
       ],
     },
     authRoutes,

@@ -31,6 +31,9 @@
           <li>
             <router-link :to="{ name: 'Reactivo' }"> Reactivo Detalle</router-link>
           </li>
+          <li>
+            <router-link :to="{ name: 'Traduccion' }"> Traduccion</router-link>
+          </li>
         </ul>
       </div>
     </div>

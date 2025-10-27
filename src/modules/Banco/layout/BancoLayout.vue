@@ -8,7 +8,7 @@ import TopMenu from '../common/components/TopMenu.vue';
     <div class="fixed top-0 left-0 w-full z-50">
       <TopMenu />
     </div>
-    <main class="flex-grow pt-16 pb-6">
+    <main class="flex-grow pt-16 pb-6 bg-base-200">
       <RouterView />
     </main>
     <footer>
