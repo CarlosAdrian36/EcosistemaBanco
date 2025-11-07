@@ -289,7 +289,7 @@
                     class="cursor-pointer hover:bg-base-300"
                     :class="[
                       'transition-all duration-300 ease-in-out cursor-pointer',
-                      selectedIndex === index
+                      selectedIndex === index && selectedIndex !== null
                         ? 'relative -translate-y-2 shadow-xl bg-base-300 rounded-lg z-10 scale-[1.01] '
                         : 'bg-transparent',
                     ]"
@@ -452,28 +452,61 @@ const SolicituddOpen = ref(false);
 
 const tableRef = ref<HTMLElement | null>(null);
 const selectedReactivo = ref<Reactivos | null>(null);
-const selectedIndex = ref<number>(0);
+const selectedIndex = ref<number | null>(null);
 
 const scrollToSelected = () => {
-  if (!tableRef.value) return;
+  if (!tableRef.value || selectedIndex.value === null) return;
 
   const selectedRow = tableRef.value.querySelector(`tr:nth-child(${selectedIndex.value + 1})`);
   if (selectedRow) {
     selectedRow.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
+      behavior: 'smooth', // Hace que el scroll sea suave
+      block: 'nearest', // Mantiene la fila lo más cerca posible de la vista actual
     });
   }
 };
+// const handleKeyDown = (event: KeyboardEvent) => {
+//   if (!data.value?.length) return;
+
+//   switch (event.key) {
+//     case 'ArrowUp':
+//       event.preventDefault();
+//       if (selectedIndex.value > 0) {
+//         selectedIndex.value--;
+//         handleReactivoClick(data.value[selectedIndex.value]);
+//         scrollToSelected();
+//       }
+//       break;
+//     case 'ArrowDown':
+//       event.preventDefault();
+//       if (selectedIndex.value < data.value.length - 1) {
+//         selectedIndex.value++;
+//         handleReactivoClick(data.value[selectedIndex.value]);
+//         scrollToSelected();
+//       }
+//       break;
+//   }
+// };
+
 const handleKeyDown = (event: KeyboardEvent) => {
   if (!data.value?.length) return;
+
+  // Si selectedIndex es null, inicializamos en -1 para el ArrowDown o en data.length para ArrowUp
+  if (selectedIndex.value === null) {
+    if (event.key === 'ArrowDown') {
+      selectedIndex.value = 0;
+      handleReactivoClick(data.value[0], 0);
+      scrollToSelected();
+    }
+    return;
+  }
 
   switch (event.key) {
     case 'ArrowUp':
       event.preventDefault();
       if (selectedIndex.value > 0) {
         selectedIndex.value--;
-        handleReactivoClick(data.value[selectedIndex.value]);
+        handleReactivoClick(data.value[selectedIndex.value], selectedIndex.value);
         scrollToSelected();
       }
       break;
@@ -481,7 +514,7 @@ const handleKeyDown = (event: KeyboardEvent) => {
       event.preventDefault();
       if (selectedIndex.value < data.value.length - 1) {
         selectedIndex.value++;
-        handleReactivoClick(data.value[selectedIndex.value]);
+        handleReactivoClick(data.value[selectedIndex.value], selectedIndex.value);
         scrollToSelected();
       }
       break;
