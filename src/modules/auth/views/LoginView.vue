@@ -1,8 +1,8 @@
 <template>
   <form @submit.prevent="">
-    <div class="flex flex-row gap-36">
+    <div class="flex flex-row justify-between content-center">
       <h1 class="text-2xl font-semibold mb-4 content-center">Inciar Sesion</h1>
-      <img src="@/assets/login/uanl-logo-v-color.png" class="img w-10" />
+      <img src="@/assets/login/uanl-logo-v-color.png" class="img w-20 h-20" />
     </div>
 
     <div class="mb-4">

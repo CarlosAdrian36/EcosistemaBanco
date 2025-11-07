@@ -32,7 +32,7 @@
           </div>
         </div>
       </div>
-      <div class="divider lg:divider-horizontal"></div>
+      <!-- <div class="divider lg:divider-horizontal"></div> -->
       <div class="basis-1/3 flex content-center justify-center">
         <div class="">
           <div class="">
@@ -50,7 +50,7 @@
                       </span>
                     </div>
                     <div class="ml-4">
-                      <h3 class="font-semibold text-success">Elaboracion</h3>
+                      <h3 class="font-semibold text-success">Elaboración</h3>
                     </div>
                     <div class="absolute top-9 left-4 w-0.5 h-4 bg-gray-300 z-10"></div>
                   </div>
@@ -65,7 +65,7 @@
                       </span>
                     </div>
                     <div class="ml-4">
-                      <h3 class="font-semibold text-success">Revision</h3>
+                      <h3 class="font-semibold text-success">Revisión</h3>
                     </div>
                     <div class="absolute top-9 left-4 w-0.5 h-4 bg-gray-300 z-10"></div>
                   </div>
@@ -92,7 +92,7 @@
                       <span class="text-gray-500 font-bold"> 4 </span>
                     </div>
                     <div class="ml-4">
-                      <h3 class="font-semibold">Revision</h3>
+                      <h3 class="font-semibold">Revisión</h3>
                     </div>
                     <div class="absolute top-9 left-4 w-0.5 h-4 bg-gray-300 z-10"></div>
                   </div>
@@ -241,14 +241,8 @@
       <div class="grid grid-cols-[4rem_auto_4rem] justify-stretch ...">
         <div></div>
         <div><h1 class="text-5xl font-bold flex justify-center p-4">Reactivos</h1></div>
-
-        <div class="content-center place-items-center">
-          <button @click="flujoOpen = true" class="btn btn-ghost btn-circle bg-base-100">
-            <InfoIcon />
-          </button>
-        </div>
       </div>
-      <BaseModal :open="flujoOpen" @close="flujoOpen = false" />
+      <!-- <BaseModal :open="flujoOpen" @close="flujoOpen = false" /> -->
       <div class="flex flex-col lg:flex-row gap-6">
         <div class="lg:w-2/3 flex flex-col gap-6">
           <div class="card rounded-lg p-4 flex flex-col md:flex-row items-center gap-4">

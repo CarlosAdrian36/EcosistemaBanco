@@ -3,7 +3,7 @@
 <template>
   <div class="min-h-screenflex w-full bg-base-300">
     <img
-      src="/src/assets/login/imagenlogin/28.png"
+      src="/src/assets/login/imagenlogin/29.png"
       alt="Fondo de la pantalla"
       class="absolute h-full w-full object-cover"
     />
@@ -21,7 +21,7 @@
     </div>
   </div> -->
   <div
-    class="relative z-10 flex flex-col gap-8 w-full max-w-md bg-white/20 backdrop-blur-md rounded-xl shadow-2xl p-6 md:p-10 dark:bg-gray-900/20 my-auto mx-4 lg:mr-20 lg:ml-auto"
+    class="relative z-10 flex flex-col gap-8 w-full max-w-md bg-white/20 backdrop-blur-lg rounded-xl shadow-2xl p-6 md:p-10 dark:bg-gray-900/20 my-auto mx-4 lg:mr-20 lg:ml-auto"
   >
     <div class="flex justify-center">
       <img
@@ -92,4 +92,3 @@
     </form>
   </div>
 </template>
-<!--  -->
