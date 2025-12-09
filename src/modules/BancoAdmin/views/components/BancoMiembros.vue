@@ -88,6 +88,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
+interface Member {
+  id: number;
+  name: string;
+}
+
 interface Props {
   open: boolean;
 }
@@ -95,7 +100,7 @@ defineProps<Props>();
 const openModal = ref(false);
 
 // Datos de ejemplo
-const availableMembers = ref([
+const availableMembers = ref<Member[]>([
   { id: 1, name: 'Ana García' },
   { id: 2, name: 'Carlos López' },
   { id: 3, name: 'Elena Martínez' },
@@ -108,16 +113,16 @@ const availableMembers = ref([
   { id: 10, name: 'David Pérez' },
 ]);
 
-const assignedMembers = ref([]);
+const assignedMembers = ref<Member[]>([]);
 
 // Método para asignar un miembro
-const assignMember = (person) => {
+const assignMember = (person: Member) => {
   availableMembers.value = availableMembers.value.filter((p) => p.id !== person.id);
   assignedMembers.value.push(person);
 };
 
 // Método para quitar un miembro asignado
-const unassignMember = (person) => {
+const unassignMember = (person: Member) => {
   assignedMembers.value = assignedMembers.value.filter((p) => p.id !== person.id);
   availableMembers.value.push(person);
 };

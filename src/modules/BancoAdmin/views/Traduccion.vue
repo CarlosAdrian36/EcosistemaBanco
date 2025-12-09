@@ -170,8 +170,8 @@
   </div>
 </template>
 <script lang="ts" setup>
-const handleResize = (event) => {
-  const textarea = event.target;
+const handleResize = (event: Event) => {
+  const textarea = event.target as HTMLTextAreaElement;
   textarea.style.height = 'auto';
   textarea.style.height = `${textarea.scrollHeight}px`;
 };

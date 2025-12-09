@@ -1,4 +1,4 @@
-import { authRoute2, authRoutes } from '@/modules/auth/routes';
+import { authRoute2, authRoute3, authRoutes } from '@/modules/auth/routes';
 import BancoLayout from '@/modules/Banco/layout/BancoLayout.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
@@ -36,6 +36,7 @@ const router = createRouter({
     },
     authRoutes,
     authRoute2,
+    authRoute3,
   ],
 });
 

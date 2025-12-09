@@ -3,8 +3,8 @@ import SendIcon from '@/modules/common/icons/sendIcon.vue';
 import { ref } from 'vue';
 type OpcionType = 'opcionA' | 'opcionB' | 'opcionC' | 'opcionD';
 const selectedOptions = ref<OpcionType[]>([]);
-const handleResize = (event) => {
-  const textarea = event.target;
+const handleResize = (event: Event) => {
+  const textarea = event.target as HTMLTextAreaElement;
   textarea.style.height = 'auto';
   textarea.style.height = `${textarea.scrollHeight}px`;
 };
