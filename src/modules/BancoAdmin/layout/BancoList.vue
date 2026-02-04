@@ -23,7 +23,7 @@ import CheckIcon from '@/modules/common/icons/checkIcon.vue';
           <div class="ps-5">
             <p class="text-sm text-gray-500">Bancos</p>
             <p class="text-3xl font-bold">16</p>
-            <p class="text-xs text-gray-500">Bancos creados</p>
+            <p class="text-xs text-gray-500">Bancos Creados</p>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@ import CheckIcon from '@/modules/common/icons/checkIcon.vue';
           <div class="ps-5">
             <p class="text-sm text-gray-500">Bancos</p>
             <p class="text-3xl font-bold">3</p>
-            <p class="text-xs text-gray-500">Bancos creados</p>
+            <p class="text-xs text-gray-500">Bancos Terminados</p>
           </div>
         </div>
       </div>
@@ -51,16 +51,16 @@ import CheckIcon from '@/modules/common/icons/checkIcon.vue';
           <div class="ps-5">
             <p class="text-sm text-gray-500">Bancos</p>
             <p class="text-3xl font-bold">13</p>
-            <p class="text-xs text-gray-500">Bancos creados</p>
+            <p class="text-xs text-gray-500">Bancos En Construccion</p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="card p-4 rounded-lg shadow-md mb-6 bg-base-100">
-      <div class="flex flex-wrap items-center justify-between gap-4">
-        <div class="flex items-center space-x-2 flex-wrap">
-          <form class="filter">
+    <!-- <div class="card p-4 rounded-lg shadow-md mb-6 bg-base-100">
+      <div class="flex flex-row gap-6">
+        <div class="basis-full">
+          <form class="filter flex space-x-2 p-4">
             <input class="btn btn-square" type="reset" value="×" />
             <input class="btn" type="radio" name="frameworks" aria-label="Elaboracion" />
             <input class="btn" type="radio" name="frameworks" aria-label="Revision" />
@@ -68,10 +68,10 @@ import CheckIcon from '@/modules/common/icons/checkIcon.vue';
             <input class="btn" type="radio" name="frameworks" aria-label="Terminado" />
           </form>
         </div>
-        <div>
-          <button class="btn">Crear Banco de reactivos</button>
+        <div class="basis-full flex items-center justify-center">
+          <button class="btn btn-wide">Crear Banco de reactivos</button>
         </div>
-        <div class="relative w-full sm:w-auto">
+        <div class="basis-full flex items-center justify-center">
           <button class="btn w-[307px] btn-outline flex justify-between mt-2">
             <div class="flex justify-between">
               <div class="flex text-sm"><SearchIcon /> Buscar...</div>
@@ -79,6 +79,38 @@ import CheckIcon from '@/modules/common/icons/checkIcon.vue';
             <div>
               <kbd class="kbd"> Ctrl </kbd> +
               <kbd class="kbd"> K </kbd>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div> -->
+    <div class="card p-4 rounded-lg shadow-md mb-6 bg-base-100">
+      <div class="flex flex-col gap-4 md:flex-row md:gap-6 md:items-center">
+        <!-- Filtros -->
+        <div class="w-full md:flex-1">
+          <form class="filter flex flex-wrap gap-2 p-4 md:flex-nowrap md:space-x-2 md:gap-0">
+            <input class="btn btn-square" type="reset" value="×" />
+            <input class="btn" type="radio" name="frameworks" aria-label="Elaboracion" />
+            <input class="btn" type="radio" name="frameworks" aria-label="Revision" />
+            <input class="btn" type="radio" name="frameworks" aria-label="Traduccion" />
+            <input class="btn" type="radio" name="frameworks" aria-label="Terminado" />
+          </form>
+        </div>
+
+        <!-- Crear -->
+        <div class="w-full md:flex-1 flex items-center justify-center">
+          <button class="btn w-full md:btn-wide">Crear Banco de reactivos</button>
+        </div>
+
+        <!-- Buscar -->
+        <div class="w-full md:flex-1 flex items-center justify-center">
+          <button class="btn w-full md:w-[307px] btn-outline flex justify-between">
+            <div class="flex text-sm items-center gap-2">
+              <SearchIcon />
+              <span>Buscar...</span>
+            </div>
+            <div class="hidden sm:block">
+              <kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">K</kbd>
             </div>
           </button>
         </div>
