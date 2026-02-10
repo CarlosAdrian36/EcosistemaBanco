@@ -1,7 +1,8 @@
 <template>
-  <div class="px-20 pt-10">
-    <div class="flex flex-row">
-      <div class="basis-2/3">
+  <div class="px-4 sm:px-8 lg:px-20 pt-6 lg:pt-10">
+    <div class="flex flex-col lg:flex-row gap-10">
+      <!-- COLUMNA IZQUIERDA -->
+      <div class="w-full lg:basis-2/3">
         <div class="flex flex-row justify-between items-center">
           <h1 class="text-5xl font-bold flex">Banco</h1>
           <div class="flex justify-end">
@@ -9,9 +10,9 @@
               <button @click="modalOpen = true" class="btn btn-soft btn-success">Editar</button>
             </div>
           </div>
-          <div class="flex flex-row items-center pe-11">
-            <p class="font-semibold pe-4">Idiomas</p>
-            <div class="flex gap-2 w-8 h-8">
+          <div class="flex flex-row items-center pe-11 badge badge-soft badge-neutral">
+            <span class="font-semibold text-sm text-base-content">Idiomas:</span>
+            <div class="flex gap-2 w-5 h-5">
               <img src="/src/assets/banderas/estados-unidos-de-america.png" alt="" />
               <img src="/src/assets/banderas/francia.png" alt="" />
             </div>
@@ -32,13 +33,84 @@
           </div>
         </div>
       </div>
-      <!-- <div class="divider lg:divider-horizontal"></div> -->
-      <div class="basis-1/3 flex content-center justify-center">
+
+      <!-- COLUMNA DERECHA -->
+      <div class="w-full lg:basis-1/3 flex justify-center">
         <div class="">
-          <div class="">
+          <div
+            class="lg:col-span-4 bg-white dark:bg-card-dark p-8 lg:p-10 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm"
+          >
+            <h2 class="text-3xl font-bold mb-10 text-secondary dark:text-white">
+              Flujo de trabajo
+            </h2>
+            <div class="relative space-y-0">
+              <div class="absolute left-5 top-4 bottom-4 w-px bg-gray-200 dark:bg-gray-700"></div>
+              <div class="relative flex items-center gap-6 pb-10 group">
+                <div
+                  class="z-10 w-10 h-10 rounded-full bg-primary flex items-center justify-center shadow-lg shadow-primary/20"
+                >
+                  <span class="material-icons text-white text-lg">check</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-primary font-bold text-lg">Elaboración</span>
+                  <span class="text-xs text-slate-400">Completado el 12 Oct</span>
+                </div>
+              </div>
+              <div class="relative flex items-center gap-6 pb-10 group">
+                <div
+                  class="z-10 w-10 h-10 rounded-full bg-primary flex items-center justify-center shadow-lg shadow-primary/20"
+                >
+                  <span class="material-icons text-white text-lg">check</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-primary font-bold text-lg">Revisión</span>
+                  <span class="text-xs text-slate-400">Completado el 14 Oct</span>
+                </div>
+              </div>
+              <div class="relative flex items-center gap-6 pb-10 group">
+                <div
+                  class="z-10 w-10 h-10 rounded-full bg-secondary dark:bg-white flex items-center justify-center shadow-xl"
+                >
+                  <span class="text-white dark:text-secondary font-bold">3</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-secondary dark:text-white font-bold text-lg">Traducción</span>
+                  <span class="text-xs font-medium text-slate-500">En progreso...</span>
+                </div>
+              </div>
+              <div class="relative flex items-center gap-6 pb-10 group">
+                <div
+                  class="z-10 w-10 h-10 rounded-full bg-accent-light dark:bg-accent-dark border border-gray-200 dark:border-gray-700 flex items-center justify-center"
+                >
+                  <span class="text-slate-400 font-bold">4</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-slate-400 font-bold text-lg">Revisión Final</span>
+                </div>
+              </div>
+              <div class="relative flex items-center gap-6 group">
+                <div
+                  class="z-10 w-10 h-10 rounded-full bg-accent-light dark:bg-accent-dark border border-gray-200 dark:border-gray-700 flex items-center justify-center"
+                >
+                  <span class="text-slate-400 font-bold">5</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-slate-400 font-bold text-lg">Terminado</span>
+                </div>
+              </div>
+            </div>
+            <div
+              class="mt-12 p-5 bg-accent-light dark:bg-accent-dark rounded-2xl border border-gray-200 dark:border-gray-700"
+            >
+              <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="material-icons text-primary">info</span>
+                <p>Próxima fecha límite sugerida: <strong>20 de Octubre</strong></p>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="">
             <h2 class="text-3xl font-bold">Flujo de trabajo</h2>
             <div class="flex flex-col pt-8 ps-8">
-              <!--  -->
               <div class="space-y-6">
                 <div class="relative flex items-start">
                   <div class="flex items-center">
@@ -110,26 +182,9 @@
                   </div>
                 </div>
               </div>
-
-              <!--  -->
             </div>
-          </div>
+          </div> -->
         </div>
-      </div>
-    </div>
-    <div class="flex justify-between pt-4">
-      <div class="avatar-group -space-x-6" v-if="selectedOptions.includes('opcionA')">
-        <button @click="Miembrosopen = true" class="btn btn-soft btn-info">Miembros</button>
-      </div>
-      <div v-if="selectedOptions.includes('opcionC')">
-        <button @click="Agregaropen = true" class="btn btn-soft btn-warning">
-          Agregar observacion
-        </button>
-      </div>
-      <div v-if="selectedOptions.includes('opcionB') || selectedOptions.includes('opcionD')">
-        <button @click="SolicituddOpen = true" class="btn btn-soft btn-warning">
-          Solicitar Revision
-        </button>
       </div>
     </div>
   </div>

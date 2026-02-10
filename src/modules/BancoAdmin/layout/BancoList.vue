@@ -99,7 +99,9 @@ import CheckIcon from '@/modules/common/icons/checkIcon.vue';
 
         <!-- Crear -->
         <div class="w-full md:flex-1 flex items-center justify-center">
-          <button class="btn w-full md:btn-wide">Crear Banco de reactivos</button>
+          <button class="btn btn-outline btn-info w-full md:btn-wide">
+            Crear Banco de reactivos
+          </button>
         </div>
 
         <!-- Buscar -->
@@ -136,8 +138,10 @@ import CheckIcon from '@/modules/common/icons/checkIcon.vue';
           <img class="w-5 h-5" src="/src/assets/banderas/francia.png" alt="" />
         </div>
         <div class="card-actions justify-end">
-          <button class="btn btn-error w-40px"><DeleteIcon /></button>
-          <button class="btn btn-primary"><ConfigIcon /></button>
+          <div class="tooltip" data-tip="Eliminar Banco">
+            <button class="btn btn-soft btn-error w-40px"><DeleteIcon /></button>
+          </div>
+          <button class="btn btn-soft btn-primary"><ConfigIcon /></button>
         </div>
       </div>
       <div class="card rounded-lg shadow-md p-6 flex flex-col justify-between bg-base-100">
@@ -158,8 +162,8 @@ import CheckIcon from '@/modules/common/icons/checkIcon.vue';
           <img class="w-5 h-5" src="/src/assets/banderas/francia.png" alt="" />
         </div>
         <div class="card-actions justify-end">
-          <button class="btn btn-error w-40px"><DeleteIcon /></button>
-          <button class="btn btn-primary"><ConfigIcon /></button>
+          <button class="btn btn-soft btn-error w-40px"><DeleteIcon /></button>
+          <button class="btn btn-soft btn-primary"><ConfigIcon /></button>
         </div>
       </div>
       <div class="card rounded-lg shadow-md p-6 flex flex-col justify-between bg-base-100">
@@ -175,8 +179,8 @@ import CheckIcon from '@/modules/common/icons/checkIcon.vue';
         <h3 class="text-lg font-bold mb-2">Cuestionario de Biología</h3>
 
         <div class="card-actions justify-end">
-          <button class="btn btn-error w-40px"><DeleteIcon /></button>
-          <button class="btn btn-primary"><ConfigIcon /></button>
+          <button class="btn btn-soft btn-error w-40px"><DeleteIcon /></button>
+          <button class="btn btn-soft btn-primary"><ConfigIcon /></button>
         </div>
       </div>
     </div>
